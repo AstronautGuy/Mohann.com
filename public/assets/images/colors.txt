@@ -1,0 +1,7 @@
+logo{
+light blue = #4b5da8 slate-500
+dark blue = #2a3568 slate-700
+light green = #0db4b2 teal-500
+dark green = #056463 teal-800
+red = #be5c33 amber-700
+}
