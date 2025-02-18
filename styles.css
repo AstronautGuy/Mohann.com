@@ -8,7 +8,7 @@
 @font-face {
     font-family: 'Ekster';
     src: url('public/assets/fonts/Ekster-Bold-BF63c7611da5ed4.otf') format('opentype');
-    font-weight: bold;
+    font-weight: normal;
     font-style: normal;
 }
 
@@ -23,7 +23,7 @@ body {
     background-color: #0db4b2;
     width: 99%;
     height: 30px;
-    color: black;
+    color: white;
     top: 0;
     display: flex;
     align-items: center;
@@ -97,12 +97,12 @@ nav ul li {
 nav ul li a {
     font-size: medium;
     text-decoration: none;
-    color: black;
+    color: white;
     padding-right:10px;
     padding-left: 10px;
     position: relative;
     display: inline-block;
-    border-right: 2px solid #000;
+    border-right: 2px solid white;
 }
 nav ul li:last-child a{
     border: none;
@@ -367,16 +367,15 @@ footer {
     align-items: flex-start;
     gap: 60px; /* Increased spacing */
     width: 100%;
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 20px 20px;
+    background-color: white;
 }
 
 /* 📍 Map Section */
 .map {
     flex: 0.8;
     display: flex;
-    justify-content: flex-start; /* Pushes map to the left */
+    justify-content: flex-start;
+    margin-left: 20px;/* Pushes map to the left */
     align-items: center;
 }
 
@@ -395,7 +394,7 @@ footer {
 /* 📌 Divider */
 .divider {
     width: 2px;
-    background-color: #444;
+    background-color: black;
     height: 100%;
     min-height: 360px;
     align-self: stretch;
@@ -452,13 +451,14 @@ footer {
 /* 📩 Contact Form */
 .contact-form {
     flex: 0.5;
-    background: #ffffff;
+    background: white;
     padding: 30px;
     border-radius: 12px;
     color: white;
     display: flex;
     flex-direction: column;
     gap: 18px;
+    margin-right: 20px;
 }
 
 /* 📑 Form Fields */
@@ -472,7 +472,7 @@ footer {
     border-radius: 6px;
     border: 1px solid black;
     background: white;
-    color: white;
+    color: black;
     font-size: 16px;
 }
 
@@ -487,7 +487,7 @@ footer {
 }
 
 .full-width {
-    width: 92%;
+    width: 93%;
 }
 
 .message-field {
@@ -510,4 +510,41 @@ footer {
 
 .submit-btn:hover {
     background: #be5c33;
+}
+
+.banner {
+    background-image: url('public/assets/images/banner1.jpeg'); /* Add your banner image path */
+    background-size: cover;
+    background-position: center;
+    height: 600px; /* Adjust the height as per your requirement */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.banner-content h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.banner-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    background-color: #FFD700; /* Gold color (you can customize it) */
+    color: black;
+    padding: 12px 20px;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #ffcc00; /* Hover effect */
 }
