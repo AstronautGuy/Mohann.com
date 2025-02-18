@@ -519,107 +519,91 @@ footer {
 .submit-btn:hover {
     background: #be5c33;
 }
+/* Hero Section */
+/* Hero Section */
+.hero-container {
+    position: relative;
+    width: 100%;
+    height: 80vh; /* Adjust based on preference */
+    overflow: hidden;
+}
 
-/* Banner Section Styling */
-/* Banner Container */
+/* Banner Wrapper (Holds All Images) */
+.hero-slider {
+    display: flex;
+    width: 300%; /* 3 banners */
+    height: 100%;
+    transition: transform 1s ease-in-out;
+}
+
+/* Individual Banner */
+.hero-slide {
+    width: 100%;
+    flex: 0 0 100%;
+    position: relative;
+}
+
+/* Background Image (Fixed Stretching Issue) */
 .banner {
-    position: relative; /* Ensures child elements can be positioned absolutely */
-    background-size: cover;
-    background-position: center;
-    height: 600px; /* Adjust height as needed */
-    display: flex;
-    align-items: flex-end; /* Aligns content at the bottom */
-    color: white;
-    text-align: left;
-    padding: 30px; /* Adds padding so text isn't at the extreme edge */
-    animation: scrollBanners 15s infinite; /* Adjust the duration for the scroll speed */
+    width: 100vw;
+    height: 90vh;
+    object-fit: cover; /* Ensures image fits without distortion */
 }
-
-/* Keyframe Animation for Scrolling Background */
-@keyframes scrollBanners {
-    0% {
-        background-image: url('public/assets/images/banner1.jpeg');
-    }
-    33% {
-        background-image: url('public/assets/images/banner2.jpeg');
-    }
-    66% {
-        background-image: url('public/assets/images/banner3.jpeg');
-    }
-    100% {
-        background-image: url('public/assets/images/banner1.jpeg');
-    }
-}
-
-/* Logo Styling - Positioned at the Top Right */
-.logo-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 120px;
-    height: 120px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-}
-
-.logo {
-    height: 80px;
-    width: auto;
-    filter: brightness(1.3) contrast(1.2);
-    z-index: 3;
-}
-
-/* Translucent Overlay */
-.banner::before {
+.hero-slide::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
     z-index: 1;
 }
-
-/* Banner Content - Positioned at the Bottom Left */
-.banner-content {
+.hero-logo {
     position: absolute;
-    bottom: 30px;
-    left: 30px;
+    left: 30.3%;
+    top: 6px;
+    height: 100px;
+    width: 100px; /* Ensure a fixed size */
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    z-index: 3;
+
+    /* Fix the issue with padding cutting off the image */
+    object-fit: contain; /* Ensures the image fits properly */
+    padding: 10px; /* Keep it minimal */
+}
+
+/* Text Container */
+.hero-text {
+    position: absolute;
+    bottom: 70px;
+    left: 40px;
     color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
     z-index: 2;
 }
-
-/* Text Styling */
-.banner-content h1 {
-    font-size: 3rem;
+.hero-text h1{
+    font-size: xxx-large;
     margin-bottom: 0;
-    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.5);
 }
-
-.banner-content p {
-    font-size: 1.5rem;
+.hero-text p{
+    font-size: x-large;
     margin-top: 0;
-    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.5);
+}
+.hero-button{
+    color: white;
+    background: #0db4b2;
+    padding: 12px 24px;
+    border-radius: 10px;
 }
 
-/* CTA Button - Optional */
-.cta-button {
-    background-color: #0db4b2;
-    color: black;
-    padding: 12px 20px;
-    font-size: 1rem;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    display: inline-block;
-    margin-bottom: 10px;
+/* Text Fade-in Effect */
+.hero-text.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.cta-button:hover {
-    background-color: #be5c33;
-}
+
