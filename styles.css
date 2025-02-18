@@ -81,6 +81,8 @@ header {
     width: auto;
     margin-left: 5px;
     padding-right: 75px;
+    padding-top: 10px;
+    filter: brightness(1.2);
 }
 
 nav ul {
@@ -245,6 +247,7 @@ footer {
     width: auto;
     margin-left: 5px;
     padding-right: 75px;
+    filter: brightness(1.2);
 }
 .footer-links a {
     color: white;
@@ -512,39 +515,132 @@ footer {
     background: #be5c33;
 }
 
+/* Banner Section Styling */
 .banner {
-    background-image: url('public/assets/images/banner1.jpeg'); /* Add your banner image path */
+    position: relative; /* Ensures child elements can be positioned absolutely */
+    background-image: url('public/assets/images/banner1.jpeg');
     background-size: cover;
     background-position: center;
-    height: 600px; /* Adjust the height as per your requirement */
+    height: 600px; /* Adjust height as needed */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-end; /* Aligns content at the bottom */
     color: white;
-    text-align: center;
+ /* Subtle dark glow */
+    text-align: left;
+    padding: 30px; /* Adds padding so text isn't at the extreme edge */
+}
+/*.banner-container img{
+    width: 100vw;
+    height: 600px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}*/
+
+/* Logo Styling - Positioned in the Top Right Corner */
+/* Logo Container with Translucent Circular Background */
+.logo-container {
+    position: absolute;
+    top: 20px;   /* Distance from top */
+    right: 20px; /* Distance from right */
+    width: 120px; /* Slightly larger than the logo */
+    height: 120px;
+    background: rgba(255, 255, 255, 0.15); /* Semi-transparent black */
+    border-radius: 25%; /* Makes it a perfect circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* Logo Image */
+.logo {
+    height: 80px; /* Adjust the logo size */
+    width: auto;
+    filter: brightness(1.3) contrast(1.2);
+    z-index: 3; /* Keeps it above the background */
+}
+
+
+
+/* Translucent Overlay */
+.banner::before {
+    content: ""; /* Necessary for pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Black with 25% opacity */
+    z-index: 1; /* Ensure overlay is above background */
+}
+
+/* Banner Content Styling - Positioned in Bottom Left */
+.banner-content {
     position: relative;
+    z-index: 2; /* Keeps text above overlay */
+    max-width: 600px; /* Prevents text from stretching too wide */
+}
+
+/* Text Background with Opacity */
+/*.banner-content h1 {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+    width: 90vw;
+    position: relative;
+    left: -50px;
+    padding-left: 50px;
+}
+.banner-content p {
+    margin-top: 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+    width: 80vw;
+    position: relative;
+    left: -50px;
+    padding-left: 50px;
+}*/
+.banner-content h1,
+.banner-content p {
+    padding: 10px;
+    /*background: rgba(255, 255, 255, 0.5);*/
+    border-radius: 0;
+    padding-left: 50px;/* No rounded corners */ /* Full width of the viewport */ /* Ensures text has some padding */
+    margin-left: -50px; /* Removes unwanted spacing */
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.35);
 }
 
 .banner-content h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    margin-bottom: 0; /* Ensures no space between h1 and p */
+    width: 90vw;
+    font-size: xxx-large;
 }
 
 .banner-content p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+    margin-top: 0; /* Ensures it touches h1 */
+    width: 50vw;
+    font-size: x-large;
 }
 
+
+/* CTA Button - Moves left so it's properly aligned */
 .cta-button {
-    background-color: #FFD700; /* Gold color (you can customize it) */
+    background-color: #0db4b2;
     color: black;
     padding: 12px 20px;
     font-size: 1rem;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s;
+    display: inline-block;
+    margin-bottom: 10px;
 }
 
 .cta-button:hover {
-    background-color: #ffcc00; /* Hover effect */
+    background-color: #be5c33;
 }
