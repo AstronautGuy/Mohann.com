@@ -516,119 +516,93 @@ footer {
 }
 
 /* Banner Section Styling */
+/* Banner Container */
 .banner {
     position: relative; /* Ensures child elements can be positioned absolutely */
-    background-image: url('public/assets/images/banner1.jpeg');
     background-size: cover;
     background-position: center;
     height: 600px; /* Adjust height as needed */
     display: flex;
     align-items: flex-end; /* Aligns content at the bottom */
     color: white;
- /* Subtle dark glow */
     text-align: left;
     padding: 30px; /* Adds padding so text isn't at the extreme edge */
+    animation: scrollBanners 15s infinite; /* Adjust the duration for the scroll speed */
 }
-/*.banner-container img{
-    width: 100vw;
-    height: 600px;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}*/
 
-/* Logo Styling - Positioned in the Top Right Corner */
-/* Logo Container with Translucent Circular Background */
+/* Keyframe Animation for Scrolling Background */
+@keyframes scrollBanners {
+    0% {
+        background-image: url('public/assets/images/banner1.jpeg');
+    }
+    33% {
+        background-image: url('public/assets/images/banner2.jpeg');
+    }
+    66% {
+        background-image: url('public/assets/images/banner3.jpeg');
+    }
+    100% {
+        background-image: url('public/assets/images/banner1.jpeg');
+    }
+}
+
+/* Logo Styling - Positioned at the Top Right */
 .logo-container {
     position: absolute;
-    top: 20px;   /* Distance from top */
-    right: 20px; /* Distance from right */
-    width: 120px; /* Slightly larger than the logo */
+    top: 20px;
+    right: 20px;
+    width: 120px;
     height: 120px;
-    background: rgba(255, 255, 255, 0.15); /* Semi-transparent black */
-    border-radius: 25%; /* Makes it a perfect circle */
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 25%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
 }
 
-/* Logo Image */
 .logo {
-    height: 80px; /* Adjust the logo size */
+    height: 80px;
     width: auto;
     filter: brightness(1.3) contrast(1.2);
-    z-index: 3; /* Keeps it above the background */
+    z-index: 3;
 }
-
-
 
 /* Translucent Overlay */
 .banner::before {
-    content: ""; /* Necessary for pseudo-element */
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Black with 25% opacity */
-    z-index: 1; /* Ensure overlay is above background */
+    background: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    z-index: 1;
 }
 
-/* Banner Content Styling - Positioned in Bottom Left */
+/* Banner Content - Positioned at the Bottom Left */
 .banner-content {
-    position: relative;
-    z-index: 2; /* Keeps text above overlay */
-    max-width: 600px; /* Prevents text from stretching too wide */
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: white;
+    z-index: 2;
 }
 
-/* Text Background with Opacity */
-/*.banner-content h1 {
-    margin-top: 20px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 0;
-    width: 90vw;
-    position: relative;
-    left: -50px;
-    padding-left: 50px;
-}
-.banner-content p {
-    margin-top: 0;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 0;
-    width: 80vw;
-    position: relative;
-    left: -50px;
-    padding-left: 50px;
-}*/
-.banner-content h1,
-.banner-content p {
-    padding: 10px;
-    /*background: rgba(255, 255, 255, 0.5);*/
-    border-radius: 0;
-    padding-left: 50px;/* No rounded corners */ /* Full width of the viewport */ /* Ensures text has some padding */
-    margin-left: -50px; /* Removes unwanted spacing */
-    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.35);
-}
-
+/* Text Styling */
 .banner-content h1 {
-    margin-bottom: 0; /* Ensures no space between h1 and p */
-    width: 90vw;
-    font-size: xxx-large;
+    font-size: 3rem;
+    margin-bottom: 0;
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.5);
 }
 
 .banner-content p {
-    margin-top: 0; /* Ensures it touches h1 */
-    width: 50vw;
-    font-size: x-large;
+    font-size: 1.5rem;
+    margin-top: 0;
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.5);
 }
 
-
-/* CTA Button - Moves left so it's properly aligned */
+/* CTA Button - Optional */
 .cta-button {
     background-color: #0db4b2;
     color: black;
