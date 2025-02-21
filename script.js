@@ -21,25 +21,35 @@ document.addEventListener("DOMContentLoaded", function () {
     texts[0].classList.add("active");
 
     // Change slides every 15 seconds
-    setInterval(updateSlider, 15000);
+    setInterval(updateSlider, 10000);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-        fetch("topBar.html")
-            .then(response => response.text())
-            .then(data => document.getElementById("topBar-placeholder").innerHTML = data);
-
-        fetch("header.html")
+    fetch("topBar.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("topBar-placeholder").innerHTML = data);
+    fetch("header.html")
         .then(response => response.text())
         .then(data => document.getElementById("header-placeholder").innerHTML = data);
 
     fetch("footer.html")
-    .then(response => response.text())
-    .then(data => document.getElementById("footer-placeholder").innerHTML = data);
+        .then(response => response.text())
+        .then(data => document.getElementById("footer-placeholder").innerHTML = data);
 
-        fetch("bottomBar.html")
-            .then(response => response.text())
-            .then(data => document.getElementById("bottomBar-placeholder").innerHTML = data);
+    fetch("bottomBar.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("bottomBar-placeholder").innerHTML = data);
 
-    });
+    fetch("whatsapp.html")
+        .then(response => response.text())
+        .then(data=> document.getElementById("whatsapp-placeholder").innerHTML =data);
+
+    fetch("subscribe.html")
+        .then(response => response.text())
+        .then(data=> document.getElementById("subscribe-placeholder").innerHTML =data);
+    fetch("contact-form.html")
+        .then(response => response.text())
+        .then(data=> document.getElementById("contact-form-placeholder").innerHTML =data);
+
+});
 
