@@ -1,14 +1,14 @@
 /* General Styles */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
-.open-sans {
-                font-family: "Open Sans", serif;
-                font-optical-sizing: auto;
-                font-weight: normal;
-                font-style: normal;
-                font-variation-settings:
-                        "wdth" 100;
-            }
+.open-sans
+{
+    font-family: "Open Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
 
 body {
     font-family: "Open Sans", serif;
@@ -35,6 +35,7 @@ body {
 .top-bar p {
     font-family: "Open Sans", serif;
     color: black;
+    margin-top: 15px;
     margin-left: 5px;
     text-align: center;
     font-style: italic;
@@ -63,6 +64,7 @@ body {
     color: white;
     text-decoration: none;
     transition: background-color 0.3s ease-in-out;
+    z-index: 999;
 }
 
 .topBar-social-icons i {
@@ -112,6 +114,7 @@ header {
     background-color: #fff;
     padding: 10px 20px;
     color: black;
+    box-shadow: 0 0 20px rgba(13,180,178,1);
     z-index: 999;
 }
 
@@ -129,15 +132,16 @@ header {
     filter: brightness(1.2);
 }
 .header-nav ul {
-     list-style: none;
-     display: flex;
-     padding: 0;
-     margin-right: 5px;
-     gap: 20px;
- }
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin-right: 5px;
+    gap: 20px;
+    margin-top: 20px;
+
+}
 
 .header-nav ul li {
-
     position: relative;
 }
 
@@ -147,25 +151,37 @@ header {
     font-size: large;
     text-decoration: none;
     color: #0db4b2;
-    padding-right: 5px;
-    padding-left: 10px;
+    padding: 10px;
     position: relative;
     display: inline-block;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-/* Adding the right border using ::after */
+/* Fix: Higher specificity for active class */
+.header-nav ul li a.active {
+    background-color: #4b5da8 !important; /* Add !important to ensure override */
+    color: white !important; /* Override hover */
+    border-radius: 5px;
+}
+
+/* Hover effect */
+.header-nav ul li a:hover {
+    color: #be5c33;
+}
+
+/* Right border using ::after */
 .header-nav ul li a::after {
     content: "";
     position: absolute;
     top: 50%;
-    right: -12px;  /* Adjusted position */
-    height: 80%;
+    right: -12px;
+    height: 60%;
     width: 2px;
     background-color: #be5c33;
     transform: translateY(-50%);
 }
 
-/* Removing the border from the last item */
+/* Hide border for last item */
 .header-nav ul li:last-child a::after {
     display: none;
 }
@@ -327,6 +343,7 @@ header {
 
 /* Footer */
 footer {
+    width: auto;
     display: flex;
     flex-direction: column;
     background-color: #222;
@@ -334,6 +351,7 @@ footer {
     text-align: center;
     padding: 20px;
     margin-top: 20px;
+    box-shadow: 0 0 20px rgba(190,92,51,1);
     justify-content: space-between;
     align-items: center;
 }
@@ -346,7 +364,6 @@ footer {
     margin-top: 20px;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
 }
 .footer-logo {
     height: 75px;
@@ -363,14 +380,14 @@ footer {
 .focus-right{
     height: 60px;
     width: auto;
-    margin-left: 200px;
+    margin-left: 80px;
     stroke: #be5c33;
     opacity: 0.5;
 }
 .focus-left{
     height: 60px;
     width: auto;
-    margin-right: 200px;
+    margin-right: 80px;
     stroke: #be5c33;
     opacity: 0.5;
 }
@@ -419,14 +436,11 @@ footer {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #0db4b2; /* Facebook Blue */
+    background-color: #4b5da8; /* Facebook Blue */
     color: white;
     font-size: 20px;
     text-decoration: none;
     transition: 0.3s ease-in-out;
-}
-.footer-social-icons a:hover {
-    background-color: #0db4b2;
 }
 
 .footer-nav ul {
@@ -442,34 +456,58 @@ footer {
 }
 
 .footer-nav ul li a {
-    font-size: medium;
+    font-size: larger;
     text-decoration: none;
-    border: none;
     color: #0db4b2;
+    margin-top: 20px;
     white-space: nowrap;
     position: relative;
     display: inline-block;
     cursor: pointer;
-    overflow:hidden;
+    overflow: hidden;
+    padding: 10px 10px;
+    transition: color 0.3s ease-in-out;
 }
+.footer-nav ul li a:hover{
+    color: #be5c33;
+}
+
+/* Border effect */
+.footer-nav ul li a::before,
 .footer-nav ul li a::after {
     content: "";
     position: absolute;
-    display: block;
-    margin: 0 auto;
     left: 20%;
-    top: 17px;
-    width: 0;
-    height: 4px;
-    border: 6px solid transparent;
-    background: #0db4b2;
-    background-clip: padding-box, border-box;
-    background-origin: padding-box, border-box;
-    transition: width 0.3s ease-in-out;
+    width: 60%;
+    height: 2px;
+    background-color: #4b5da8;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
 }
+
+/* Top border */
+.footer-nav ul li a::before {
+    top: 0;
+    transform-origin: left;
+}
+
+/* Bottom border */
+.footer-nav ul li a::after {
+    bottom: 0;
+    transform-origin: right;
+}
+
+/* Animate borders on hover */
+.footer-nav ul li a:hover::before {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
 .footer-nav ul li a:hover::after {
-    width: 50%;
+    transform: scaleX(1);
+    transform-origin: left;
 }
+
 .footer-divider {
     border: none;
     border-top: 3px solid #be5c33; /* Gold divider */
@@ -597,7 +635,7 @@ footer {
 /* 📩 Contact Form */
 
 * {
-    margin: 0;
+    margin-top: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
@@ -605,6 +643,7 @@ footer {
 
 .form {
     display: flex;
+    margin-top: 130px;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -615,7 +654,7 @@ footer {
     content: "";
     position: absolute;
     left: 0;
-    top: 155px;
+    top: 140px;
     width: 100%;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
@@ -791,7 +830,7 @@ footer {
 /* Hero Section */
 .hero-container {
     position: relative;
-    top: 150px;
+    top: 130px;
     width: 100%;
     height: 90vh; /* Adjust based on preference */
     overflow: hidden;
@@ -831,16 +870,17 @@ footer {
 .hero-logo {
     position: absolute;
     right: 20px;
-    top: 10px;
-    height: 100px;
-    width: 100px; /* Ensure a fixed size */
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
+    top: 30px;
+    height: 80px;
+    width: 80px; /* Ensure a fixed size */
+    background: rgba(255, 255, 255, 0.25);
+    filter: brightness(1.3);
+    border-radius: 20%;
     z-index: 3;
 
     /* Fix the issue with padding cutting off the image */
     object-fit: contain; /* Ensures the image fits properly */
-    padding: 10px; /* Keep it minimal */
+    padding: 5px; /* Keep it minimal */
 }
 
 /* Text Container */
@@ -894,4 +934,84 @@ footer {
 }
 .whatsapp-float:hover {
     background-color: #1EBE5D;
+}
+/* Preloader Styles */
+/* Fullscreen Preloader */
+#preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #121212; /* Dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Loader Animation */
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffcc00; /* Golden theme */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hide Preloader */
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 7)); } /* Adjust based on visible slides */
+}
+
+.slider {
+    background: white;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
+    height: 100px;
+    margin: 30px auto;
+    overflow: hidden;
+    position: relative;
+    width: 100vw;
+}
+
+.slider::before,
+.slider::after {
+    content: "";
+    height: 100px;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.slider::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+}
+
+.slider::before {
+    left: 0;
+    top: 0;
+}
+
+.slide-track {
+    animation: scroll 40s linear infinite;
+    display: flex;
+    width: calc(250px * 14); /* Total slides width */
+}
+
+.slide {
+    height: 100px;
+    width: 250px;
 }
