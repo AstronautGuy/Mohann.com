@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: "Comic Sans MS", 'sans-serif' !important;
+    font-family: sans-serif;
     margin: 0;
     padding: 0;
     background-color: white;
@@ -19,7 +19,7 @@ body {
     position: fixed;
     background-color: #0db4b2;
     width: 100%;
-    height: 50px;
+    height: 40px;
     color: white;
     top: 0;
     display: flex;
@@ -31,10 +31,54 @@ body {
     z-index: 1000;
 }
 .top-bar p {
+    font-family: sans-serif;
     margin-left: 5px;
     text-align: center;
+    font-style: italic;
+    font-weight: bold;
 }
-.header-social-icons {
+.topBar-nav ul {
+
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin-right: 5px;
+    gap: 20px;
+}
+
+.topBar-nav ul li {
+
+    position: relative;
+}
+
+.topBar-nav ul li a {
+    font-family: sans-serif;
+    font-size: medium;
+    text-decoration: none;
+    color: white;
+    padding-right: 10px;
+    padding-left: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Adding the right border using ::after */
+.topBar-nav ul li a::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -12px;  /* Adjusted position */
+    height: 60%;
+    width: 2px;
+    background-color: white;
+    transform: translateY(-50%);
+}
+
+/* Removing the border from the last item */
+.topBar-nav ul li:last-child a::after {
+    display: none;
+}
+/*.header-social-icons {
     display: flex;
     gap: 20px;
     margin-right: 10px;
@@ -61,16 +105,21 @@ body {
 }
 .header-icon:hover {
     fill: #be5c33;
-}
-
+}*/
 header {
-    margin-top: 50px;
+    margin-top: 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     background-color: #fff;
     padding: 15px 20px;
-    color: white;
+    color: black;
+    position: relative;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
 }
 
 .header-logo {
@@ -82,87 +131,102 @@ header {
     filter: brightness(1.2);
 }
 
-.topBar-nav ul {
-    list-style: none;
+/* Right section: Social Icons & Email */
+.header-right {
     display: flex;
-    padding: 0;
-    margin-right: 5px;
-    gap: 20px;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
-.topBar-nav ul li {
-    position: relative;
+.header-social-icons {
+    display: flex;
+    align-items: center;
+    gap: 50px;
 }
 
-.topBar-nav ul li a {
-    font-size: medium;
-    text-decoration: none;
+.header-social-icons div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #4b5da8;
     color: white;
-    padding-right: 10px;
-    padding-left: 10px;
-    position: relative;
-    display: inline-block;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out;
 }
 
-/* Adding the right border using ::after */
-.topBar-nav ul li a::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: -12px;  /* Adjusted position */
-    height: 60%;
-    width: 2px;
-    background-color: white;
-    transform: translateY(-50%);
+.header-social-icons a:hover {
+    background-color: #0D65E3;
 }
 
-/* Removing the border from the last item */
-.topBar-nav ul li:last-child a::after {
-    display: none;
+.header-social-icons i {
+    font-size: 10px;
 }
 
-.search-bar {
-    display: flex;
-    gap: 2px;
+.contact-text {
+    font-size: 14px;
+    color: black;
 }
+
+
+/* Search Bar Below */
 .search-row {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 20px;
 }
+
+.search-bar {
+    display: flex;
+    gap: 5px;
+}
+
 .search-bar input {
     padding: 5px 15px;
     font-size: 16px;
-    width: 150px;
-    height: 30px;
+    width: 460px;
+    height: 23px;
     border: black 1px solid;
     border-radius: 5px;
 }
-.search-bar input:focus{
+
+.search-bar input:focus {
     outline: none;
     border-color: #0db4b2;
-    box-shadow: 0 0 8px rgb(13,180,178);
+    box-shadow: 0 0 8px rgba(13, 180, 178, 0.5);
 }
 
 .search-bar button {
     padding: 5px 10px;
     border: none;
-    width: auto;
-    height: 30px;
-    background: #0db4b2;
+    width: 60px;
+    height: 23px;
+    background: #4b5da8;
     color: white;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
+
 .search-bar button:hover {
     background: #be5c33;
 }
-.search-icon{
+
+.search-icon {
     stroke: black;
-    height: 20px;
+    height: 14px;
     width: auto;
 }
+
 
 /* Hero Section */
 .newsletter {
@@ -308,7 +372,7 @@ footer {
     margin-right: 200px;
     stroke: dimgray;
 }
-.footer-social-icons {
+/*.footer-social-icons {
     display: flex;
     gap: 20px;
     margin-right: 10px;
@@ -335,6 +399,32 @@ footer {
 
 .footer-icon:hover {
     fill: #0db4b2;
+}*/
+.footer-social-icons {
+    position: relative;
+    left: 20px;
+    bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    z-index: 999;
+}
+
+.footer-social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #0db4b2; /* Facebook Blue */
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+.footer-social-icons a:hover {
+    background-color: #0db4b2;
 }
 
 .footer-nav ul {
@@ -523,7 +613,7 @@ footer {
     content: "";
     position: absolute;
     left: 0;
-    top: 165px;
+    top: 155px;
     width: 100%;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
@@ -782,22 +872,23 @@ footer {
     opacity: 1;
     transform: translateY(0);
 }
-
-.float{
-    position:fixed;
-    width:60px;
-    height:60px;
-    bottom:40px;
-    right:40px;
-    background-color:#25d366;
-    color:#FFF;
-    border-radius:50px;
-    text-align:center;
-    font-size:30px;
-    box-shadow: 2px 2px 3px #999;
-    z-index:100;
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
 }
-
-.my-float{
-    margin-top:16px;
+.whatsapp-float:hover {
+    background-color: #1EBE5D;
 }
