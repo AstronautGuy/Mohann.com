@@ -23,36 +23,200 @@ html, body {
     overflow-x: hidden;
 }
 
-/* Preloader Container */
-/* Preloader Container */
-#preloader {
+
+/*#preloader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #ffffff; /* Change background color as needed */
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    /* We'll fade out the container via JS */
 }
-
-/* Company Logo in Preloader */
 #preloader .logo {
     width: 150px;
     height: 150px;
-    background-image: url('public/assets/images/LogoNoBg.png'); /* Replace with your logo */
+    background-image: url('public/assets/images/LogoCropped.png');
+    filter: brightness(1.3);
     background-size: contain;
     background-repeat: no-repeat;
-    /* No animation property here; animation is handled via GSAP */
 }
 
-/* Hide the Main Content Initially */
 #main-content {
     display: none;
+}*/
+/* Fullscreen Preloader Container */
+/* Fullscreen Preloader Container */
+/* Preloader Container – full screen overlay */
+/* Preloader Container */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #f7f7f7;  /* Light theme background */
+    overflow: hidden;
+    z-index: 9999;
 }
+
+/* Background Animation Container */
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Dynamic Grid – mimicking blueprint lines */
+.grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(45deg, rgba(200,200,200,0.2) 0, rgba(200,200,200,0.2) 1px, transparent 1px, transparent 50px),
+    repeating-linear-gradient(-45deg, rgba(200,200,200,0.2) 0, rgba(200,200,200,0.2) 1px, transparent 1px, transparent 50px);
+    animation: gridShift 20s linear infinite;
+}
+@keyframes gridShift {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-50px, -50px); }
+}
+
+/* Mechanical Lines Container */
+.mechanical-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.line {
+    position: absolute;
+    width: 2px;
+    height: 80px;
+    background: rgba(100, 100, 100, 0.5);
+    opacity: 0;
+    animation: linePulse 3s ease-in-out infinite;
+}
+.line1 { top: 20%; left: 15%; animation-delay: 0.2s; }
+.line2 { top: 40%; left: 70%; animation-delay: 0.5s; }
+.line3 { top: 65%; left: 30%; animation-delay: 0.8s; }
+.line4 { top: 10%; left: 80%; animation-delay: 1.1s; }
+@keyframes linePulse {
+    0% { opacity: 0; transform: translateY(0) scaleY(0.5); }
+    50% { opacity: 1; transform: translateY(-20px) scaleY(1); }
+    100% { opacity: 0; transform: translateY(-40px) scaleY(0.5); }
+}
+
+/* Floating Particles Container */
+.floating-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.particle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #ffae00, #ffcc00);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: float 6s ease-in-out infinite;
+}
+.particle1 { top: 15%; left: 10%; animation-delay: 0s; }
+.particle2 { top: 25%; left: 80%; animation-delay: 0.5s; }
+.particle3 { top: 70%; left: 20%; animation-delay: 1s; }
+.particle4 { top: 80%; left: 60%; animation-delay: 1.5s; }
+.particle5 { top: 40%; left: 40%; animation-delay: 2s; }
+.particle6 { top: 55%; left: 85%; animation-delay: 2.5s; }
+@keyframes float {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
+    50%  { transform: translate(30px, -30px) scale(1.2); opacity: 0.5; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+}
+
+/* Logo Container (centered above background) */
+.logo-container {
+    position: relative;
+    z-index: 2;
+    width: 250px;
+    height: 250px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+/* Company Logo Entrance (Old logoEntrance effect, no glitch) */
+#company-logo {
+    width: 100%;
+    height: 100%;
+    background: url("public/assets/images/LogoCropped.png") no-repeat center;
+    background-size: contain;
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.3) rotate(-30deg);
+    animation: logoEntrance 3.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes logoEntrance {
+    0% {
+        opacity: 0;
+        filter: blur(8px);
+        transform: scale(0.3) rotate(-30deg);
+    }
+    40% {
+        opacity: 1;
+        filter: blur(4px);
+        transform: scale(1.4) rotate(15deg);
+    }
+    70% {
+        filter: blur(2px);
+        transform: scale(0.95) rotate(-5deg);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Cursor Ripple Effect (applied only within #preloader) */
+.cursor-ripple {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    animation: rippleEffect 0.6s ease-out forwards;
+}
+@keyframes rippleEffect {
+    from {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(10);
+        opacity: 0;
+    }
+}
+
+/* (The rest of your CSS remains unchanged.) */
+
 .top-bar {
     position: fixed;
     background-color: #0db4b2;
@@ -1092,49 +1256,76 @@ footer {
     background-color: #1EBE5D;
 }
 
+/* Slider Container */
 .slider {
-    background: white;
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
-    height: 100px;
-    margin: 30px auto;
+    padding-top: 50px;
+    padding-bottom: 150px;
+    width: 100vw;
+    height: 150px;
     overflow: hidden;
     position: relative;
-    width: 100vw;
+    background: white;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
 }
 
+/* Gradient Fading Effect on Edges */
 .slider::before,
 .slider::after {
     content: "";
-    height: 100px;
+    height: 100%;
+    width: 150px;
     position: absolute;
-    width: 200px;
     z-index: 2;
-    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-}
-
-.slider::after {
-    right: 0;
     top: 0;
-    transform: rotateZ(180deg);
 }
 
 .slider::before {
     left: 0;
-    top: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
+.slider::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Slide Track */
+/* For 4 slides duplicated (i.e. 8 total) */
 .slide-track {
-    animation: scroll 40s linear infinite;
     display: flex;
-    width: calc(250px * 14); /* Total slides width */
+    width: calc(250px * 4 * 2);
+    animation: scroll 12s linear infinite;
+    will-change: transform;
 }
 
+/* Individual Slide */
 .slide {
-    height: 100px;
     width: 250px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+/* Image Styling */
+.slide img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Smooth Scrolling Animation */
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+/* Optional: Duplicate slides in HTML */
+
 .why-choose-us {
+    margin-top: 150px;
     padding: 20px;
+    left: 20px;
 }
 
 .choose {
@@ -1142,7 +1333,7 @@ footer {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 20px;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 /* Left Section */
@@ -1151,7 +1342,7 @@ footer {
     grid-row: span 3;
     width: 100%;
     font-size: large;
-    padding: 40px 80px;
+    padding: 40px 20px;
 }
 
 /* Divider */
