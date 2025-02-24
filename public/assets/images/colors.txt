@@ -5,5 +5,3 @@ light green = #0db4b2 teal-500
 dark green = #056463 teal-800
 red = #be5c33 amber-700
 }
-
-QN3ekekqEGEJH0qk
