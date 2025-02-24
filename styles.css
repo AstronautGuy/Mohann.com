@@ -9,14 +9,50 @@
     font-style: normal;
     font-variation-settings: "wdth" 100;
 }
-
-body {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+html, body {
     font-family: "Open Sans", serif;
     margin: 0;
     padding: 0;
     background-color: white;
+    width: 100%;
+    overflow-x: hidden;
 }
 
+/* Preloader Container */
+/* Preloader Container */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff; /* Change background color as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    /* We'll fade out the container via JS */
+}
+
+/* Company Logo in Preloader */
+#preloader .logo {
+    width: 150px;
+    height: 150px;
+    background-image: url('public/assets/images/LogoNoBg.png'); /* Replace with your logo */
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* No animation property here; animation is handled via GSAP */
+}
+
+/* Hide the Main Content Initially */
+#main-content {
+    display: none;
+}
 .top-bar {
     position: fixed;
     background-color: #0db4b2;
@@ -105,9 +141,10 @@ body {
     fill: #be5c33;
 }*/
 header {
+    overflow-x: hidden;
     top: 40px;
     position: fixed;
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -320,12 +357,17 @@ header {
     font-size: 1rem;
     color: #666;
 }
-.wrapper{
-    perspective:3000px;
+.wrapper {
+    display: flex;
+    max-width: 100%;
+    overflow-x: hidden;
+    perspective: 3000px;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 10px;
 }
-
 .card{
-    width: 360px;
+    width: 330px;
     height: 530px;
     transform-style: preserve-3d;
     transition: transform .8s ease-in-out;
@@ -348,11 +390,14 @@ header {
 }
 .card-info{
     position: absolute;
-    bottom: 50px;
-    left: 45px;
+    bottom: 150px;
     color: black;
     text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.5);
     text-align: center;
+}
+.card-info img{
+    max-width: 100%;
+    height: auto;
 }
 .card-title{
     font-size: 2rem;
@@ -433,6 +478,7 @@ header {
 
 /* Footer */
 footer {
+    overflow-x: hidden;
     width: auto;
     display: flex;
     flex-direction: column;
@@ -933,7 +979,9 @@ footer {
     height: 100%;
     transition: transform 1s ease-in-out;
 }
-
+.hero-slide img{
+    background-attachment:fixed;
+}
 /* Individual Banner */
 .hero-slide {
     width: 100%;
@@ -1024,44 +1072,6 @@ footer {
 }
 .whatsapp-float:hover {
     background-color: #1EBE5D;
-}
-/* Preloader Styles */
-/* Fullscreen Preloader */
-#preloader {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: #121212; /* Dark background */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease-out;
-}
-
-/* Loader Animation */
-.loader {
-    width: 50px;
-    height: 50px;
-    border: 5px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #ffcc00; /* Golden theme */
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Hide Preloader */
-.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-250px * 7)); } /* Adjust based on visible slides */
 }
 
 .slider {
