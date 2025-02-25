@@ -1,6 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM fully loaded and parsed");
 
+    const catalogSection = document.querySelector('.catalog');
+
+    // Create an intersection observer to add .show class when the element is in view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add 'show' class when the section enters the viewport
+                catalogSection.classList.add('show');
+                // Stop observing after the animation triggers
+                observer.unobserve(catalogSection);
+            }
+        });
+    }, { threshold: 0.1 }); // Adjust threshold as needed
+
+    // Start observing the .catalog section
+    if (catalogSection) {
+        observer.observe(catalogSection);
+    } else {
+        console.warn("Catalog section (.catalog) not found!");
+    }
+
     // ===============================
     // Preloader (only if exists)
     // ===============================
@@ -15,8 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Hiding preloader...");
         preloader.style.transition = "opacity 0.5s ease";
         preloader.style.opacity = '0';
-        // Remove ripple event listener from preloader so ripple stops once hidden
-        preloader.removeEventListener("mousemove", preloaderMousemove);
         setTimeout(() => {
             preloader.style.display = 'none';
             const mainContent = document.getElementById('main-content');
@@ -33,8 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function initPreloader() {
         if (preloader) {
             console.log("Preloader element found, starting preloader timer.");
-            // Attach ripple effect event listener ONLY to the preloader
-            preloader.addEventListener("mousemove", preloaderMousemove);
             setTimeout(hidePreloader, 5000);
         } else {
             console.warn("Preloader element (#preloader) not found on this page.");
@@ -48,22 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
         window.addEventListener('load', initPreloader);
     }
 
-    // Preloader Ripple Effect: add ripple element at mouse position within preloader
-    function preloaderMousemove(e) {
-        let ripple = document.createElement("div");
-        ripple.className = "cursor-ripple";
-        // Position relative to the preloader container
-        const rect = preloader.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let y = e.clientY - rect.top;
-        ripple.style.left = x + "px";
-        ripple.style.top = y + "px";
-        preloader.appendChild(ripple);
-        setTimeout(() => {
-            ripple.remove();
-        }, 600); // Match the duration in CSS keyframes
-    }
-
+    // ===============================
+    // Scroll-triggered Animation for Catalog Section
+    // ===============================
     // ===============================
     // Hero Slider (only if elements exist)
     // ===============================
@@ -79,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
             index = (index + 1) % slides.length;
         }
         if (texts.length > 0) texts[0].classList.add("active");
-        setInterval(updateSlider, 10000);
+        setInterval(updateSlider, 2000);
     }
 
     // ===============================
@@ -87,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ===============================
     const components = [
         { id: "topBar-placeholder", file: "/topBar.html" },
+        { id: "preloader", file: "/preloader.html" },
         { id: "header-placeholder", file: "/header.html" },
         { id: "footer-placeholder", file: "/footer.html" },
         { id: "bottomBar-placeholder", file: "/bottomBar.html" },
@@ -151,7 +156,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // ===============================
     // (Optional) Advanced Cursor Effects for Background
     // ===============================
-    // (If you have a grid-wrapper or similar using CSS variables, include your mousemove listener here.)
     document.addEventListener("mousemove", function(e) {
         const mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
         const mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
