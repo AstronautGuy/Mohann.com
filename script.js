@@ -1,87 +1,259 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM fully loaded and parsed");
 
-    const catalogSection = document.querySelector('.catalog');
+    const valuesContent = {
+        partnerships: {
+            title: 'Creating Client Partnerships',
+            description: `Core to our business is a deep belief that we work collaboratively as a team and in partnership with our clients. We develop strong relationships based on mutual trust and respect every step of the way. We aim to work like an extended arm of their company providing the expertise and value that helps them become more successful in their business, which in turn helps us become successful at ours.`
+        },
+        excellence: {
+            title: 'Excellence',
+            description: `While we work towards providing high quality products & services, we know it’s important to be challenging “status-quo” for every internal process. We strive to set new benchmarks and raise the bar. It means we always look for better ways of doing things on behalf of our projects, our clients and our organisation.`
+        },
+        commitment: {
+            title: 'Commitment',
+            description: `We truly believe that unless there is commitment, there are only promises and hopes, but not results. If you are committed there is always a way! We are committed to deliver to the customer, ‘what’ we say we will deliver, exactly ‘when’ we say we will deliver. We also guarantee the process performance parameters of our equipment, to ensure our clients get exactly what we agreed to deliver.`
+        },
+        integrity: {
+            title: 'Integrity',
+            description: `Integrity is fundamental to our business. Our commitment to integrity means we always do what is right, not what is easy. We think straight, talk straight and act straight.`
+        },
+        development: {
+            title: 'Product Development',
+            description: `Our business is not about the money we make; but the Value we add to our clients’ businesses. We strive to be giving higher value and compete to be a better version of ourselves always. As such, we shall strive to bring new improved solutions to our clients by way of investing our best talent and time on product development.`
+        },
+        authority: {
+            title: 'Authority, Responsibility & Accountability',
+            description: `As humans we do learn the most from making mistakes. But with mistakes there is a tendency to lay blame or justify. There is a thin line which separates responsibility and blame. At Neologic, we train ourselves consciously to ensure we that we do not slip below the line. We aim to remain always above the line with taking the authority given to execute work proactively; take responsibility for the duty assigned to the position we hold and always remain accountable to our superiors and clients.`
+        },
+        fun: {
+            title: 'Fun',
+            description: `We don’t believe fun at work takes away from productivity, we believe it increases it. We love to celebrate our successes. We come to work through choice not necessity. We are genuinely friendly and up-beat.`
+        }
+    };
 
-    // Create an intersection observer to add .show class when the element is in view
-    const observer = new IntersectionObserver((entries) => {
+    const icons = document.querySelectorAll('.value-icon');
+    const titleEl = document.getElementById('value-title');
+    const descriptionEl = document.getElementById('value-description');
+
+// The container for the divider
+    const dividerContainer = document.querySelector('.divider-container');
+// The highlight element we'll move around
+    const highlight = document.querySelector('.divider-highlight');
+
+    /**
+     * Positions the highlight bar under the given icon.
+     * @param {HTMLElement} icon - The icon element that is active.
+     */
+    function positionHighlight(icon) {
+        const iconRect = icon.getBoundingClientRect();
+        const containerRect = dividerContainer.getBoundingClientRect();
+
+        // The left position is how far the icon is from the container's left edge
+        const leftPos = iconRect.left - containerRect.left;
+
+        // Match the highlight width to the icon's width
+        highlight.style.width = iconRect.width + 'px';
+
+        // Move the highlight to that left position
+        highlight.style.left = leftPos + 'px';
+    }
+
+    /**
+     * Switches the active value content and moves the highlight.
+     * @param {HTMLElement} icon - The clicked icon.
+     */
+    function activateValue(icon) {
+        // Remove active class from all icons
+        icons.forEach(i => i.classList.remove('active'));
+        // Add active class to the clicked icon
+        icon.classList.add('active');
+
+        // Update the text based on the icon's data-value
+        const valueKey = icon.getAttribute('data-value');
+        const content = valuesContent[valueKey];
+        titleEl.textContent = content.title;
+        descriptionEl.textContent = content.description;
+
+        // Position the highlight under this icon
+        positionHighlight(icon);
+    }
+
+// Add click listeners
+    icons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            activateValue(icon);
+        });
+    });
+
+// On page load, position highlight under the icon that starts active
+    window.addEventListener('load', () => {
+        const activeIcon = document.querySelector('.value-icon.active');
+        if (activeIcon) {
+            positionHighlight(activeIcon);
+        }
+    });
+
+// If user resizes the window, re-position the highlight under the active icon
+    window.addEventListener('resize', () => {
+        const activeIcon = document.querySelector('.value-icon.active');
+        if (activeIcon) {
+            positionHighlight(activeIcon);
+        }
+    });
+
+    const counters = document.querySelectorAll('.number');
+    const speed = 200; // lower number = faster counting
+
+    // Function to update each counter
+    const updateCounter = (counter) => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / speed;
+
+        if(count < target) {
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(() => updateCounter(counter), 20);
+        } else {
+            counter.innerText = target;
+        }
+    };
+
+    // Animate only when the element is in view using IntersectionObserver
+    const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Add 'show' class when the section enters the viewport
-                catalogSection.classList.add('show');
-                // Stop observing after the animation triggers
-                observer.unobserve(catalogSection);
+            if(entry.isIntersecting) {
+                updateCounter(entry.target);
+                observer.unobserve(entry.target); // Animate only once per counter
             }
         });
-    }, { threshold: 0.1 }); // Adjust threshold as needed
+    }, { threshold: 0.5 }); // Adjust threshold as needed
 
-    // Start observing the .catalog section
+    // Observe each counter
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+
+    const testimonials = document.querySelectorAll(".testimonial");
+    let currentTestimonial = 0;
+    let autoScroll;
+
+    // Function to show a specific testimonial
+    function showTestimonial(index) {
+        testimonials.forEach((testimonial, i) => {
+            testimonial.classList.toggle("active", i === index);
+        });
+    }
+
+    // Function to go to the next testimonial
+    function nextTestimonial() {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }
+
+    // Function to go to the previous testimonial
+    function prevTestimonial() {
+        currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }
+
+    // Function to attach navigation button event listeners
+    function attachNavListeners() {
+        const prevBtn = document.querySelector(".prev-btn");
+        const nextBtn = document.querySelector(".next-btn");
+
+        if (prevBtn && nextBtn) {
+            console.log("Navigation buttons found. Adding event listeners...");
+            prevBtn.addEventListener("click", prevTestimonial);
+            nextBtn.addEventListener("click", nextTestimonial);
+        } else {
+            console.warn("Navigation buttons NOT found! Retrying in 1 second...");
+            setTimeout(attachNavListeners, 1000); // Retry after 1 second
+        }
+    }
+
+    // Auto-scroll every 5 seconds
+    function startAutoScroll() {
+        autoScroll = setInterval(nextTestimonial, 5000);
+    }
+
+    function stopAutoScroll() {
+        clearInterval(autoScroll);
+    }
+
+    document.querySelector(".testimonial-container")?.addEventListener("mouseenter", stopAutoScroll);
+    document.querySelector(".testimonial-container")?.addEventListener("mouseleave", startAutoScroll);
+
+    // Show the first testimonial by default
+    showTestimonial(currentTestimonial);
+    attachNavListeners(); // Attach event listeners after DOM is ready
+    startAutoScroll();
+
+    // ===============================
+    // Scroll-triggered Animation for Catalog Section
+    // ===============================
+    const catalogSection = document.querySelector(".catalog");
+
     if (catalogSection) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        catalogSection.classList.add("show");
+                        observer.unobserve(catalogSection);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
         observer.observe(catalogSection);
     } else {
         console.warn("Catalog section (.catalog) not found!");
     }
 
     // ===============================
-    // Preloader (only if exists)
+    // Preloader Handling
     // ===============================
-    const preloader = document.getElementById('preloader');
+    const preloader = document.getElementById("preloader");
 
-    // Function to hide the preloader with fade-out transition
     function hidePreloader() {
-        if (!preloader) {
-            console.warn("Preloader element not found in hidePreloader!");
-            return;
-        }
-        console.log("Hiding preloader...");
+        if (!preloader) return;
         preloader.style.transition = "opacity 0.5s ease";
-        preloader.style.opacity = '0';
+        preloader.style.opacity = "0";
         setTimeout(() => {
-            preloader.style.display = 'none';
-            const mainContent = document.getElementById('main-content');
-            if (mainContent) {
-                mainContent.style.display = 'block';
-                console.log("Main content is now visible.");
-            } else {
-                console.warn("Main content element (#main-content) not found!");
-            }
+            preloader.style.display = "none";
+            const mainContent = document.getElementById("main-content");
+            if (mainContent) mainContent.style.display = "block";
         }, 500);
     }
 
-    // Initialize preloader animation after the window loads
     function initPreloader() {
-        if (preloader) {
-            console.log("Preloader element found, starting preloader timer.");
-            setTimeout(hidePreloader, 5000);
-        } else {
-            console.warn("Preloader element (#preloader) not found on this page.");
-        }
+        if (preloader) setTimeout(hidePreloader, 5000);
     }
 
-    // Use window load event to ensure all assets are loaded before starting the preloader timer
     if (document.readyState === "complete") {
         initPreloader();
     } else {
-        window.addEventListener('load', initPreloader);
+        window.addEventListener("load", initPreloader);
     }
 
     // ===============================
-    // Scroll-triggered Animation for Catalog Section
-    // ===============================
-    // ===============================
-    // Hero Slider (only if elements exist)
+    // Hero Slider (if exists)
     // ===============================
     const slider = document.querySelector(".hero-slider");
     const slides = document.querySelectorAll(".hero-slide");
     const texts = document.querySelectorAll(".hero-text");
+    let index = 0;
+
     if (slider && slides.length > 0) {
-        let index = 0;
         function updateSlider() {
             slider.style.transform = `translateX(-${index * 100}%)`;
-            texts.forEach(text => text.classList.remove("active"));
+            texts.forEach((text) => text.classList.remove("active"));
             if (texts[index]) texts[index].classList.add("active");
             index = (index + 1) % slides.length;
         }
+
         if (texts.length > 0) texts[0].classList.add("active");
         setInterval(updateSlider, 2000);
     }
@@ -98,72 +270,75 @@ document.addEventListener("DOMContentLoaded", function () {
         { id: "whatsapp-placeholder", file: "/whatsapp.html" },
         { id: "subscribe-placeholder", file: "/subscribe.html" },
         { id: "contact-form-placeholder", file: "/contact-form.html" },
-        { id: "logo-placeholder", file: "/logoScroller.html" }
+        { id: "logo-placeholder", file: "/logoScroller.html" },
     ];
 
     let headerLoaded = false;
 
     components.forEach(({ id, file }) => {
         fetch(file)
-            .then(response => {
+            .then((response) => {
                 if (!response.ok) throw new Error(`Failed to load ${file}`);
                 return response.text();
             })
-            .then(data => {
+            .then((data) => {
                 const element = document.getElementById(id);
-                if (element) {
-                    element.innerHTML = data;
-                } else {
-                    console.warn(`Element with id "${id}" not found.`);
-                }
-                // When header loads, highlight active menu item
+                if (element) element.innerHTML = data;
+                else console.warn(`Element with id "${id}" not found.`);
                 if (file === "/header.html") {
                     headerLoaded = true;
-                    highlightActiveMenu();
                 }
             })
-            .catch(error => console.error(`Error loading ${file}:`, error));
+            .catch((error) => console.error(`Error loading ${file}:`, error));
     });
 
     // ===============================
     // Active Page Menu Highlight
     // ===============================
     function highlightActiveMenu() {
-        const currentLocation = window.location.pathname.split("/").pop().toLowerCase() || "index.html";
+        const currentLocation =
+            window.location.pathname.split("/").pop().toLowerCase() || "index.html";
         const menuItems = document.querySelectorAll(".header-nav ul li a");
 
-        console.log("Current Page:", currentLocation);
-
         if (menuItems.length === 0) {
-            console.warn("Menu items not found! Waiting for header to load...");
-            setTimeout(() => {
-                if (!headerLoaded) highlightActiveMenu(); // Retry if header isn’t loaded yet
-            }, 100);
+            console.warn("Menu items not found! Retrying...");
             return;
         }
 
-        menuItems.forEach(item => {
+        menuItems.forEach((item) => {
             const itemHref = item.getAttribute("href").split("/").pop().toLowerCase();
-            console.log("Comparing:", itemHref, "with", currentLocation);
-            if (itemHref === currentLocation) {
-                item.classList.add("active");
-            } else {
-                item.classList.remove("active");
-            }
+            item.classList.toggle("active", itemHref === currentLocation);
         });
     }
 
+    function waitForHeaderAndHighlight() {
+        const checkInterval = setInterval(() => {
+            if (headerLoaded) {
+                highlightActiveMenu();
+                clearInterval(checkInterval);
+            }
+        }, 100);
+    }
+    waitForHeaderAndHighlight();
+
     // ===============================
-    // (Optional) Advanced Cursor Effects for Background
+    // Advanced Cursor Effects for Background
     // ===============================
-    document.addEventListener("mousemove", function(e) {
+    document.addEventListener("mousemove", function (e) {
         const mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
         const mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        const rotateX = mouseY * 10; // adjust as desired
+        const rotateX = mouseY * 10;
         const rotateY = -mouseX * 10;
-        document.documentElement.style.setProperty('--mouseX', mouseX);
-        document.documentElement.style.setProperty('--mouseY', mouseY);
-        document.documentElement.style.setProperty('--rotateX', rotateX + "deg");
-        document.documentElement.style.setProperty('--rotateY', rotateY + "deg");
+        document.documentElement.style.setProperty("--mouseX", mouseX);
+        document.documentElement.style.setProperty("--mouseY", mouseY);
+        document.documentElement.style.setProperty("--rotateX", rotateX + "deg");
+        document.documentElement.style.setProperty("--rotateY", rotateY + "deg");
+    });
+
+    // ===============================
+    // Cleanup on Page Unload
+    // ===============================
+    window.addEventListener("beforeunload", () => {
+        clearInterval(autoScroll);
     });
 });
