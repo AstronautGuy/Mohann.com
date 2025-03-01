@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function initPreloader() {
-        if (preloader) setTimeout(hidePreloader, 5000);
+        if (preloader) setTimeout(hidePreloader, 2000);
     }
 
     if (document.readyState === "complete") {
