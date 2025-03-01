@@ -1,0 +1,184 @@
+.services-text {
+    padding-left: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 70px; /* Space between h1 and p */
+}
+
+.services-text h1 {
+    padding-top: 170px;
+    position: relative;
+    white-space: nowrap; /* Prevents breaking */
+    font-size: 3.5rem;
+    font-weight: normal;
+}
+
+.services-text h1::before {
+    content: "";
+    position: absolute;
+    bottom: -5px; /* Adjust as needed */
+    left: 0;
+    width: 30%; /* Adjust to cover "Our" */
+    height: 2px;
+    background-color: #0db4b2; /* Underline color */
+}
+
+.services-text p {
+    max-width: 800px; /* Adjust width */
+    font-size: 2rem;
+    color: #666;
+}
+.wrapper {
+    display: flex;
+    max-width: 100%;
+    justify-content: space-between;
+    overflow-x: hidden;
+    perspective: 3000px;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px;
+}
+.card{
+    width: 330px;
+    height: 530px;
+    transform-style: preserve-3d;
+    transition: transform .8s ease-in-out;
+    cursor: pointer;
+    border: 1px solid white;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
+    -5px -5px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 15px;
+}
+.card:hover{
+    transform: rotateY(180deg);
+}
+.front-page,
+.back-page{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+}
+.card-info{
+    position: absolute;
+    bottom: 150px;
+    color: black;
+    text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+.card-info img{
+    max-width: 100%;
+    height: auto;
+}
+.card-title{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.card-subtitle{
+    font-size: 1.2rem;
+    margin-top: 5px;
+    color: #4b5da8;
+}
+.back-page{
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateY(180deg);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.card-content{
+    text-align: center;
+    padding: 20px;
+    max-width: 300px;
+}
+.card-content h3{
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+.card-description{
+    font-size: 1rem;
+    color: black;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+.card-button{
+    background-color: #4b5da8;
+    color: white;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.card-button:hover{
+    background-color: #be5c33;
+}
+.catalog {
+    /* Center the content horizontally/vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    margin-left: 5%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    /* Spacing around the content */
+    padding: 100px;
+
+    /* Background color */
+    background: #4b5da8;
+
+    /* Unique curved shape */
+    border-radius: 60px 0 60px 0;
+
+    /* White text */
+    color: #fff;
+    perspective: 1000px;
+
+    /* Initial state for the scroll effect */
+    opacity: 0;
+    transform: translateX(20px) rotateX(-60deg);
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+/* Final state applied via JS when .show is added */
+.catalog.show {
+    opacity: 1;
+    transform: translateX(0) rotateX(0);
+}
+
+/* Inner content wrapper */
+.catalog-content {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* Headline style */
+.catalog-content h1 {
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+/* Button styling */
+.catalog-button {
+    padding: 15px 30px;
+    background-color: #0db4b2;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.catalog-button:hover {
+    background-color: #be5c33;
+}

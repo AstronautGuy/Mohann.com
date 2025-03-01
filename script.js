@@ -262,15 +262,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // Fetch External HTML Components
     // ===============================
     const components = [
-        { id: "topBar-placeholder", file: "/topBar.html" },
-        { id: "preloader", file: "/preloader.html" },
-        { id: "header-placeholder", file: "/header.html" },
-        { id: "footer-placeholder", file: "/footer.html" },
-        { id: "bottomBar-placeholder", file: "/bottomBar.html" },
-        { id: "whatsapp-placeholder", file: "/whatsapp.html" },
-        { id: "subscribe-placeholder", file: "/subscribe.html" },
-        { id: "contact-form-placeholder", file: "/contact-form.html" },
-        { id: "logo-placeholder", file: "/logoScroller.html" },
+        { id: "topBar-placeholder", file: "/components/topBar.html" },
+        { id: "preloader", file: "/components/preloader.html" },
+        { id: "header-placeholder", file: "/components/header.html" },
+        { id: "footer-placeholder", file: "/components/footer.html" },
+        { id: "bottomBar-placeholder", file: "/components/bottomBar.html" },
+        { id: "whatsapp-placeholder", file: "/components/whatsapp.html" },
+        { id: "subscribe-placeholder", file: "/components/subscribe.html" },
+        { id: "contact-form-placeholder", file: "/components/contact-form.html" },
+        { id: "logo-placeholder", file: "/components/logoScroller.html" },
     ];
 
     let headerLoaded = false;
@@ -296,30 +296,43 @@ document.addEventListener("DOMContentLoaded", function () {
     // Active Page Menu Highlight
     // ===============================
     function highlightActiveMenu() {
-        const currentLocation =
-            window.location.pathname.split("/").pop().toLowerCase() || "index.html";
-        const menuItems = document.querySelectorAll(".header-nav ul li a");
+        // Use the current URL from window.location.href
+        const currentUrl = new URL(window.location.href);
+        const currentPath = currentUrl.pathname.toLowerCase();
+        console.log("Current URL path:", currentPath);
 
-        if (menuItems.length === 0) {
-            console.warn("Menu items not found! Retrying...");
+        // Get all the menu links
+        const menuItems = document.querySelectorAll(".header-nav ul li a");
+        if (!menuItems.length) {
+            console.warn("Menu items not found!");
             return;
         }
 
         menuItems.forEach((item) => {
-            const itemHref = item.getAttribute("href").split("/").pop().toLowerCase();
-            item.classList.toggle("active", itemHref === currentLocation);
+            // Resolve the link using document.baseURI so relative URLs are resolved relative to the document
+            const href = item.getAttribute("href");
+            const linkUrl = new URL(href, document.baseURI);
+            const linkPath = linkUrl.pathname.toLowerCase();
+            console.log("Menu link path:", linkPath);
+
+            // Compare the file names (or modify the comparison as needed)
+            const currentFile = currentPath.split("/").pop() || "index.html";
+            const linkFile = linkPath.split("/").pop() || "index.html";
+            console.log("Comparing files:", currentFile, "vs", linkFile);
+
+            // If the file names match, mark the link as active
+            if (currentFile === linkFile) {
+                item.classList.add("active");
+            } else {
+                item.classList.remove("active");
+            }
         });
     }
 
-    function waitForHeaderAndHighlight() {
-        const checkInterval = setInterval(() => {
-            if (headerLoaded) {
-                highlightActiveMenu();
-                clearInterval(checkInterval);
-            }
-        }, 100);
-    }
-    waitForHeaderAndHighlight();
+// Use window.load to ensure all content (including async header) is loaded
+    window.addEventListener("load", highlightActiveMenu);
+
+
 
     // ===============================
     // Advanced Cursor Effects for Background
